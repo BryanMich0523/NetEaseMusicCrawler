@@ -1,9 +1,9 @@
 """
-获取所有的歌手信息
+Getting info of artists.
 """
 import requests
 from bs4 import BeautifulSoup
-from music_163 import sql
+from musicCrawler import sql
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -25,7 +25,7 @@ def save_artist(group_id, initial):
     params = {'id': group_id, 'initial': initial}
     r = requests.get('http://music.163.com/discover/artist/cat', params=params)
 
-    # 网页解析
+    # Web Parsing
     soup = BeautifulSoup(r.content.decode(), 'html.parser')
     body = soup.body
 
@@ -34,20 +34,20 @@ def save_artist(group_id, initial):
 
     for artist in hot_artists:
         artist_id = artist['href'].replace('/artist?id=', '').strip()
-        artist_name = artist['title'].replace('的音乐', '')
+        artist_name = artist['title'].replace("'s music", '')
         try:
             sql.insert_artist(artist_id, artist_name)
         except Exception as e:
-            # 打印错误日志
+            # print error log
             print(e)
 
     for artist in artists:
         artist_id = artist['href'].replace('/artist?id=', '').strip()
-        artist_name = artist['title'].replace('的音乐', '')
+        artist_name = artist['title'].replace("'s music", '')
         try:
             sql.insert_artist(artist_id, artist_name)
         except Exception as e:
-            # 打印错误日志
+            # print error log
             print(e)
 
 
