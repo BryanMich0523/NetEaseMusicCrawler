@@ -1,5 +1,6 @@
 # NetEaseMusicCrawler
 Crawling the number of all comments of songs in NetEase Music (an music app famous for its comments).
+Surely, the structure can be used in other crawler projects.
 ![](https://img.shields.io/badge/Python-3.5.2-blue.svg)
 
 The basic structure (demand analysis) is down below: (layer by layer)
